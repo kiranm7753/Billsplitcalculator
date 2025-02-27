@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Important for mobile responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Roommate Money Splitter</title>
-  <!-- Google Fonts & your CSS -->
+  <!-- Google Fonts: Lobster (headings), Poppins (body) -->
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap"
     rel="stylesheet"
@@ -19,9 +20,10 @@
     <input type="number" id="amount" placeholder="Amount" step="0.01" />
 
     <h3>Who should share this amount?</h3>
+    <!-- Shortened "Select All" to "All" -->
     <div class="radio-group">
       <input type="radio" name="selection" id="selectAll" />
-      <label for="selectAll"><strong>Select All</strong></label>
+      <label for="selectAll"><strong>All</strong></label>
 
       <input type="radio" name="selection" id="selectNonVeg" />
       <label for="selectNonVeg"><strong>Non Veg</strong></label>
@@ -34,6 +36,7 @@
     </div>
     <hr />
 
+    <!-- Your roommate checkboxes will go here -->
     <div id="roommateList" class="roommate-list"></div>
     <hr />
 
@@ -45,10 +48,10 @@
     <h3>Final Amounts:</h3>
     <div id="resultList" class="results"></div>
 
-    <button id="showResultsBtn" class="hidden" onclick="showResults()">Show Final Results</button>
-    <button id="clearResultsBtn" class="hidden" onclick="clearResults()">Clear Results</button>
+    <button id="showResultsBtn" class="btn hidden" onclick="showResults()">Show Final Results</button>
+    <button id="clearResultsBtn" class="btn hidden" onclick="clearResults()">Clear Results</button>
 
-    <!-- NEW SECTION: Manage a Single Expense -->
+    <!-- Manage Existing Expense Section -->
     <hr />
     <h3>Manage an Existing Expense</h3>
     <div class="manage-expense">
@@ -59,6 +62,7 @@
     </div>
   </div>
 
+  <!-- Keep your existing script.js with the cents-based logic and other features -->
   <script src="script.js"></script>
 </body>
 </html>

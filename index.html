@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roommate Money Splitter</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roommate Money Splitter</title>
+  <!-- Google Fonts & your CSS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<div class="container">
+  <div class="container">
     <h2>Roommate Money Splitter</h2>
-    
-    <label for="amount">Enter Amount:</label>
-    <input type="number" id="amount" placeholder="Amount" step="0.01">
-    
-    <h3>Who should share this amount?</h3>
 
-	<input type="radio" name="selection" id="selectAll"> <label for="selectAll"><strong>Select All</strong></label>
-	<input type="radio" name="selection" id="selectNonVeg"> <label for="selectNonVeg"><strong>Non Veg</strong></label>
-	<input type="radio" name="selection" id="selectEgg"> <label for="selectEgg"><strong>Egg</strong></label>
-	<input type="radio" name="selection" id="selectCustom" checked> <label for="selectCustom"><strong>Custom</strong></label>
-	<hr/>
-	<div id="roommateList" class="roommate-list"></div>
-	<hr/>
+    <label for="amount">Enter Amount:</label>
+    <input type="number" id="amount" placeholder="Amount" step="0.01" />
+
+    <h3>Who should share this amount?</h3>
+    <div class="radio-group">
+      <input type="radio" name="selection" id="selectAll" />
+      <label for="selectAll"><strong>Select All</strong></label>
+
+      <input type="radio" name="selection" id="selectNonVeg" />
+      <label for="selectNonVeg"><strong>Non Veg</strong></label>
+
+      <input type="radio" name="selection" id="selectEgg" />
+      <label for="selectEgg"><strong>Egg</strong></label>
+
+      <input type="radio" name="selection" id="selectCustom" checked />
+      <label for="selectCustom"><strong>Custom</strong></label>
+    </div>
+    <hr />
+
+    <div id="roommateList" class="roommate-list"></div>
+    <hr />
 
     <button onclick="addExpense()">Add Expense</button>
 
@@ -34,8 +47,18 @@
 
     <button id="showResultsBtn" class="hidden" onclick="showResults()">Show Final Results</button>
     <button id="clearResultsBtn" class="hidden" onclick="clearResults()">Clear Results</button>
-</div>
 
-<script src="script.js"></script>
+    <!-- NEW SECTION: Manage a Single Expense -->
+    <hr />
+    <h3>Manage an Existing Expense</h3>
+    <div class="manage-expense">
+      <label for="expenseIndex">Expense #:</label>
+      <input type="number" id="expenseIndex" min="1" placeholder="e.g. 1" />
+      <button onclick="modifyExpense()">Modify Expense</button>
+      <button onclick="deleteExpense()">Delete Expense</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

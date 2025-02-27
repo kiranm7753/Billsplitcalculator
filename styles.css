@@ -1,65 +1,178 @@
+/* 
+   Two-font setup: "Lobster" for fancy headings, 
+   "Poppins" for clean body text
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap');
+
+/* 
+   BODY & BACKGROUND 
+   - A subtle gradient plus your chalkboard pattern 
+   - Slightly stronger background image for a chalky effect
+*/
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
-    /* position: relative; */
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  background: linear-gradient(135deg, #b3c6ff 0%, #e6f0ff 100%);
+  min-height: 100vh;
 }
 
 body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('symbols2.jpg');
-    background-repeat: repeat;
-    background-size: 350px 220px;
-    opacity: 1.0; /* Set the opacity of the background image */
-    z-index: -1; /* Ensure it stays behind other content */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/symbols2.jpg');
+  background-repeat: repeat;
+  background-size: 350px 220px;
+  opacity: 0.15; /* Slightly stronger than before for a visible chalk effect */
+  z-index: -1;
 }
 
+/* 
+   CONTAINER 
+   - A bigger, more rounded card 
+   - Subtle box shadow 
+*/
 .container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    position: relative;
-    z-index: 1;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 1;
 }
 
+/* 
+   HEADINGS 
+   - Use "Lobster" for a fancy, handwritten style
+*/
+h2 {
+  font-family: 'Lobster', cursive;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+h3 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* 
+   LABELS & INPUTS 
+   - Clean, modern style for input fields
+*/
+label[for="amount"] {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1em;
+  outline: none;
+  transition: border 0.2s;
+}
+
+input[type="number"]:focus {
+  border-color: #007BFF;
+}
+
+/* 
+   RADIO BUTTON GROUP 
+   - Keep them on one line with spacing
+*/
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.radio-group input[type="radio"] {
+  accent-color: #007BFF;
+  margin-right: 5px;
+}
+
+.radio-group label {
+  font-weight: 500;
+  color: #333;
+}
+
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 2px solid #eee;
+}
+
+/* 
+   ROOMMATE LIST 
+   - Aligned left for checkboxes 
+*/
 .roommate-list {
-    text-align: left;
-    margin-bottom: 10px;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
 .roommate-list div {
-    margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
+/* 
+   BUTTONS 
+   - A more eye-catching gradient 
+   - Slight scale-up on hover 
+*/
 button {
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
+  margin-top: 10px;
+  padding: 12px;
+  width: 100%;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #0056b3;
+  transform: scale(1.03);
 }
 
+/* 
+   EXPENSES & RESULTS 
+   - Subtle background, spacing 
+*/
 .expenses, .results {
-    text-align: left;
-    margin-top: 20px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.expenses div, .results div {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }

@@ -1,21 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Fixed roommate list and groups
     const roommates = ["DEEKSHITH", "NAGI", "NANDITH", "PAVAN", "RAVI", "SASI", "SUNDAR"];
     const nonVegGroup = ["PAVAN", "SASI", "RAVI", "NANDITH"];
     const eggGroup = ["NAGI", "PAVAN", "SASI", "RAVI", "NANDITH"];
   
-    // Original balances + total
+    // Balances and total amount
     let balances = {};
     let totalAmount = 0;
-  
-    // NEW: Keep track of all added expenses here
-    let allExpenses = [];
-  
-    // Initialize balances
     roommates.forEach(name => balances[name] = 0);
+  
+    // Array to store each expense (amount and roommates array)
+    let allExpenses = [];
   
     const roommateList = document.getElementById("roommateList");
   
-    // Creating roommate checkboxes
+    // Create roommate checkboxes dynamically
     roommates.forEach((name, index) => {
       const div = document.createElement("div");
       div.innerHTML = `
@@ -32,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   
     function resetSelection() {
-      document.querySelectorAll(".roommate-checkbox").forEach(cb => cb.checked = false);
+      document.querySelectorAll(".roommate-checkbox").forEach(cb => {
+        cb.checked = false;
+      });
     }
   
     function updateRadioSelection() {
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
       cb.addEventListener("change", updateRadioSelection);
     });
   
-    // ======== Original Add Expense Logic + storing in allExpenses ========
+    // ========== Add a new expense (2-decimal splitting, distribute leftover cents) ==========
     window.addExpense = function () {
       const amount = parseFloat(document.getElementById("amount").value);
       const selectedRoommates = Array.from(document.querySelectorAll(".roommate-checkbox:checked"))
@@ -91,31 +92,28 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
   
-      // We do the original logic
-      let splitAmount = amount / selectedRoommates.length;
-      splitAmount = Math.round(splitAmount * 100) / 100;
-      let totalSplit = splitAmount * selectedRoommates.length;
-      let remainingAmount = Math.round((amount - totalSplit) * 100) / 100;
+      // Convert amount to integer cents
+      const totalCents = Math.round(amount * 100);
+      const shareCents = Math.floor(totalCents / selectedRoommates.length);
+      const leftover = totalCents % selectedRoommates.length;
   
+      // Update each roommate's balance
       selectedRoommates.forEach((name, index) => {
-        balances[name] += splitAmount;
-        if (index === 0) {
-          balances[name] += remainingAmount;
+        balances[name] += shareCents / 100;
+        if (index < leftover) {
+          balances[name] += 0.01;
         }
+        balances[name] = parseFloat(balances[name].toFixed(2));
       });
+  
       totalAmount += amount;
   
-      // Create a visual item
-      const expenseList = document.getElementById("expenseList");
-      const expenseItem = document.createElement("div");
-      expenseItem.textContent = `Item: $${amount.toFixed(2)}`;
-      expenseList.appendChild(expenseItem);
-  
-      // NEW: Also store it in our allExpenses array
+      // Store expense
       allExpenses.push({
         amount: amount,
         roommates: selectedRoommates
       });
+      renderExpenses();
   
       document.getElementById("amount").value = "";
       resetSelection();
@@ -123,7 +121,19 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("showResultsBtn").classList.remove("hidden");
     };
   
-    // ======== Show Results (unchanged) ========
+    // Render all expenses with incremental numbering
+    function renderExpenses() {
+      const expenseList = document.getElementById("expenseList");
+      expenseList.innerHTML = "";
+      allExpenses.forEach((expense, index) => {
+        const expenseItem = document.createElement("div");
+        expenseItem.className = "expense-item";
+        expenseItem.textContent = `Item ${index + 1}: $${expense.amount.toFixed(2)}`;
+        expenseList.appendChild(expenseItem);
+      });
+    }
+  
+    // Show final results
     window.showResults = function () {
       const resultList = document.getElementById("resultList");
       resultList.innerHTML = "";
@@ -133,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
         resultItem.textContent = `${name}: $${total.toFixed(2)}`;
         resultList.appendChild(resultItem);
       }
-  
       const totalDiv = document.createElement("div");
       totalDiv.innerHTML = `<strong>Total: $${totalAmount.toFixed(2)}</strong>`;
       resultList.appendChild(totalDiv);
@@ -142,115 +151,106 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("clearResultsBtn").classList.remove("hidden");
     };
   
-    // ======== Clear Results (unchanged) ========
+    // Clear results (reload)
     window.clearResults = function () {
       location.reload();
     };
   
-    // ======== NEW: Recalculate from scratch after modifications ========
+    // Recalculate from scratch after modifications or deletions
     function recalcAll() {
-      // 1) Reset all balances, totalAmount, and expense list
-      for (let name of Object.keys(balances)) {
-        balances[name] = 0;
-      }
+      roommates.forEach(name => { balances[name] = 0; });
       totalAmount = 0;
       document.getElementById("expenseList").innerHTML = "";
   
-      // 2) Reapply each expense in allExpenses
-      allExpenses.forEach(exp => {
-        let amount = exp.amount;
-        let selectedRoommates = exp.roommates;
+      allExpenses.forEach((exp, idx) => {
+        const totalCents = Math.round(exp.amount * 100);
+        const shareCents = Math.floor(totalCents / exp.roommates.length);
+        const leftover = totalCents % exp.roommates.length;
   
-        // Original distribution logic
-        let splitAmount = amount / selectedRoommates.length;
-        splitAmount = Math.round(splitAmount * 100) / 100;
-        let totalSplit = splitAmount * selectedRoommates.length;
-        let remainingAmount = Math.round((amount - totalSplit) * 100) / 100;
-  
-        selectedRoommates.forEach((name, index) => {
-          balances[name] += splitAmount;
-          if (index === 0) {
-            balances[name] += remainingAmount;
+        exp.roommates.forEach((name, i) => {
+          balances[name] += shareCents / 100;
+          if (i < leftover) {
+            balances[name] += 0.01;
           }
+          balances[name] = parseFloat(balances[name].toFixed(2));
         });
-        totalAmount += amount;
+        totalAmount += exp.amount;
   
-        // Re-create the expense item visually
         const expenseList = document.getElementById("expenseList");
         const expenseItem = document.createElement("div");
-        expenseItem.textContent = `Item: $${amount.toFixed(2)}`;
+        expenseItem.className = "expense-item";
+        expenseItem.textContent = `Item ${idx + 1}: $${exp.amount.toFixed(2)}`;
         expenseList.appendChild(expenseItem);
       });
   
-      // If no expenses remain, hide "Show Final Results"
       if (allExpenses.length > 0) {
         document.getElementById("showResultsBtn").classList.remove("hidden");
       } else {
         document.getElementById("showResultsBtn").classList.add("hidden");
       }
-  
-      // Clear any displayed results
       document.getElementById("resultList").innerHTML = "";
       document.getElementById("clearResultsBtn").classList.add("hidden");
     }
   
-    // ======== NEW: Modify an existing expense ========
+    // ========== Modify an existing expense ==========
     window.modifyExpense = function () {
       const idx = parseInt(document.getElementById("expenseIndex").value, 10) - 1;
       if (isNaN(idx) || idx < 0 || idx >= allExpenses.length) {
         alert("Invalid expense number.");
         return;
       }
-  
       const oldExpense = allExpenses[idx];
-      const newAmountStr = prompt("Enter new amount:", oldExpense.amount.toString());
-      if (newAmountStr === null) return; // User canceled
   
+      const newAmountStr = prompt("Enter new amount:", oldExpense.amount.toString());
+      if (newAmountStr === null) return; // user canceled
       const newAmount = parseFloat(newAmountStr);
       if (isNaN(newAmount) || newAmount <= 0) {
         alert("Invalid new amount.");
         return;
       }
   
-      // For simplicity, let's also let them update the roommates
-      // (You could skip this if you only want to edit the amount.)
-      const newRoommatesStr = prompt(
-        "Enter comma-separated roommate names:",
-        oldExpense.roommates.join(", ")
-      );
-      if (newRoommatesStr === null) return; // User canceled
-  
-      // Convert comma list to array
-      const newRoommates = newRoommatesStr
-        .split(",")
-        .map(r => r.trim())
-        .filter(r => r);
-  
-      if (newRoommates.length === 0) {
-        alert("No valid roommate names entered.");
-        return;
+      // Loop to ensure valid roommate names are entered
+      let validRoommates = [];
+      while (true) {
+        const newRoommatesStr = prompt("Enter comma-separated roommate names:", oldExpense.roommates.join(", "));
+        if (newRoommatesStr === null) return; // user canceled
+        const newRoommatesInput = newRoommatesStr.split(",").map(r => r.trim()).filter(r => r);
+        if (newRoommatesInput.length === 0) {
+          alert("No valid roommate names entered. Please try again.");
+          continue;
+        }
+        validRoommates = [];
+        const invalidRoommates = [];
+        newRoommatesInput.forEach(name => {
+          const match = roommates.find(r => r.toLowerCase() === name.toLowerCase());
+          if (match) {
+            validRoommates.push(match);
+          } else {
+            invalidRoommates.push(name);
+          }
+        });
+        if (invalidRoommates.length > 0) {
+          alert("The following names are invalid: " + invalidRoommates.join(", ") + "\nPlease re-enter the names.");
+        } else {
+          break;
+        }
       }
   
-      // Update that expense in our array
+      // Update expense object with new data
       oldExpense.amount = newAmount;
-      oldExpense.roommates = newRoommates;
+      oldExpense.roommates = validRoommates;
   
-      // Recalculate everything
       recalcAll();
     };
   
-    // ======== NEW: Delete an existing expense ========
+    // ========== Delete an existing expense ==========
     window.deleteExpense = function () {
       const idx = parseInt(document.getElementById("expenseIndex").value, 10) - 1;
       if (isNaN(idx) || idx < 0 || idx >= allExpenses.length) {
         alert("Invalid expense number.");
         return;
       }
-  
-      // Remove from our array
       allExpenses.splice(idx, 1);
-  
-      // Recalculate everything
       recalcAll();
     };
   });

@@ -1,14 +1,6 @@
-/* 
-   Two-font setup: "Lobster" for fancy headings, 
-   "Poppins" for clean body text
-*/
+/* Import Google Fonts: Lobster for headings, Poppins for body */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap');
 
-/* 
-   BODY & BACKGROUND 
-   - A subtle gradient plus your chalkboard pattern 
-   - Slightly stronger background image for a chalky effect
-*/
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -19,6 +11,7 @@ body {
   min-height: 100vh;
 }
 
+/* Light chalkboard pattern behind the gradient */
 body::after {
   content: '';
   position: absolute;
@@ -29,15 +22,11 @@ body::after {
   background-image: url('symbols2.jpg');
   background-repeat: repeat;
   background-size: 350px 220px;
-  opacity: 0.15; /* Slightly stronger than before for a visible chalk effect */
+  opacity: 0.15;
   z-index: -1;
 }
 
-/* 
-   CONTAINER 
-   - A bigger, more rounded card 
-   - Subtle box shadow 
-*/
+/* Main container with a max width */
 .container {
   max-width: 500px;
   margin: 40px auto;
@@ -49,10 +38,7 @@ body::after {
   z-index: 1;
 }
 
-/* 
-   HEADINGS 
-   - Use "Lobster" for a fancy, handwritten style
-*/
+/* Fancy heading font */
 h2 {
   font-family: 'Lobster', cursive;
   font-size: 2em;
@@ -66,14 +52,10 @@ h3 {
   color: #333;
 }
 
-/* 
-   LABELS & INPUTS 
-   - Clean, modern style for input fields
-*/
-label[for="amount"] {
-  display: block;
-  margin-bottom: 8px;
+label {
   font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
   color: #444;
 }
 
@@ -92,10 +74,7 @@ input[type="number"]:focus {
   border-color: #007BFF;
 }
 
-/* 
-   RADIO BUTTON GROUP 
-   - Keep them on one line with spacing
-*/
+/* Shortened radio labels can now fit on one line more easily */
 .radio-group {
   display: flex;
   flex-wrap: wrap;
@@ -114,6 +93,7 @@ input[type="number"]:focus {
   color: #333;
 }
 
+/* Horizontal rule styling */
 hr {
   margin: 20px 0;
   border: none;
@@ -121,23 +101,16 @@ hr {
 }
 
 /* 
-   ROOMMATE LIST 
-   - Aligned left for checkboxes 
+  Roommate checkboxes + labels on the same line:
+  Use display: flex; to keep them side-by-side 
 */
-.roommate-list {
-  text-align: left;
-  margin-bottom: 20px;
-}
-
 .roommate-list div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 10px;
 }
 
-/* 
-   BUTTONS 
-   - A more eye-catching gradient 
-   - Slight scale-up on hover 
-*/
 button {
   margin-top: 10px;
   padding: 12px;
@@ -157,22 +130,61 @@ button:hover {
   transform: scale(1.03);
 }
 
-/* 
-   EXPENSES & RESULTS 
-   - Subtle background, spacing 
-*/
 .expenses, .results {
   text-align: left;
   margin-top: 20px;
 }
 
-.expenses div, .results div {
+.expense-item, .results div {
   background: #f9f9f9;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 8px;
 }
 
+/* Manage expense section */
+.manage-expense {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.manage-expense input {
+  width: 80px;
+  padding: 6px;
+  margin-right: 10px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+  outline: none;
+}
+
 .hidden {
   display: none;
+}
+
+/* Responsive: make the container narrower on small screens to prevent cropping */
+@media only screen and (max-width: 600px) {
+  .container {
+    max-width: 90%;
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  h2 {
+    font-size: 1.8em;
+  }
+  
+  h3 {
+    font-size: 1.2em;
+  }
+  
+  input[type="number"], .manage-expense input {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+  
+  button {
+    font-size: 0.95em;
+    padding: 10px;
+  }
 }

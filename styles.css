@@ -26,7 +26,7 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('assets/symbols2.jpg');
+  background-image: url('symbols2.jpg');
   background-repeat: repeat;
   background-size: 350px 220px;
   opacity: 0.15; /* Slightly stronger than before for a visible chalk effect */

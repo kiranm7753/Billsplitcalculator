@@ -1,4 +1,4 @@
-/* Import Google Fonts: Lobster for headings, Poppins for body */
+/* Import Google Fonts: Lobster for fancy headings, Poppins for body text */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap');
 
 body {
@@ -11,7 +11,6 @@ body {
   min-height: 100vh;
 }
 
-/* Light chalkboard pattern behind the gradient */
 body::after {
   content: '';
   position: absolute;
@@ -19,14 +18,13 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('symbols2.jpg');
+  background-image: url('assets/symbols2.jpg');
   background-repeat: repeat;
   background-size: 350px 220px;
   opacity: 0.15;
   z-index: -1;
 }
 
-/* Main container with a max width */
 .container {
   max-width: 500px;
   margin: 40px auto;
@@ -38,7 +36,6 @@ body::after {
   z-index: 1;
 }
 
-/* Fancy heading font */
 h2 {
   font-family: 'Lobster', cursive;
   font-size: 2em;
@@ -74,7 +71,6 @@ input[type="number"]:focus {
   border-color: #007BFF;
 }
 
-/* Shortened radio labels can now fit on one line more easily */
 .radio-group {
   display: flex;
   flex-wrap: wrap;
@@ -93,17 +89,17 @@ input[type="number"]:focus {
   color: #333;
 }
 
-/* Horizontal rule styling */
 hr {
   margin: 20px 0;
   border: none;
   border-top: 2px solid #eee;
 }
 
-/* 
-  Roommate checkboxes + labels on the same line:
-  Use display: flex; to keep them side-by-side 
-*/
+.roommate-list {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
 .roommate-list div {
   display: flex;
   align-items: center;
@@ -130,22 +126,58 @@ button:hover {
   transform: scale(1.03);
 }
 
-.expenses, .results {
-  text-align: left;
-  margin-top: 20px;
-}
-
-.expense-item, .results div {
+/* Expense item: display flex to align text and buttons inline */
+.expense-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: #f9f9f9;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 8px;
 }
 
-/* Manage expense section */
+/* Container for the small inline buttons */
+.btn-container {
+  display: flex;
+  gap: 5px;
+}
+
+/* Small buttons for inline modify and delete actions */
+.small-btn {
+  padding: 6px 10px;
+  font-size: 0.85em;
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.small-btn:hover {
+  transform: scale(1.05);
+}
+
+.expenses, .results {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.results div {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
 .manage-expense {
   text-align: center;
   margin-top: 15px;
+}
+
+.manage-expense label {
+  margin-right: 10px;
 }
 
 .manage-expense input {
@@ -162,7 +194,7 @@ button:hover {
   display: none;
 }
 
-/* Responsive: make the container narrower on small screens to prevent cropping */
+/* Responsive Design */
 @media only screen and (max-width: 600px) {
   .container {
     max-width: 90%;

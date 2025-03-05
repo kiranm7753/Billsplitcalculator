@@ -2,14 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Important for mobile responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Roommate Money Splitter</title>
-  <!-- Google Fonts: Lobster (headings), Poppins (body) -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Import Google Fonts: Lobster for headings, Poppins for body text -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -20,7 +16,6 @@
     <input type="number" id="amount" placeholder="Amount" step="0.01" />
 
     <h3>Who should share this amount?</h3>
-    <!-- Shortened "Select All" to "All" -->
     <div class="radio-group">
       <input type="radio" name="selection" id="selectAll" />
       <label for="selectAll"><strong>All</strong></label>
@@ -36,7 +31,6 @@
     </div>
     <hr />
 
-    <!-- Your roommate checkboxes will go here -->
     <div id="roommateList" class="roommate-list"></div>
     <hr />
 
@@ -50,19 +44,11 @@
 
     <button id="showResultsBtn" class="btn hidden" onclick="showResults()">Show Final Results</button>
     <button id="clearResultsBtn" class="btn hidden" onclick="clearResults()">Clear Results</button>
-
-    <!-- Manage Existing Expense Section -->
-    <hr />
-    <h3>Manage an Existing Expense</h3>
-    <div class="manage-expense">
-      <label for="expenseIndex">Expense #:</label>
-      <input type="number" id="expenseIndex" min="1" placeholder="e.g. 1" />
-      <button onclick="modifyExpense()">Modify Expense</button>
-      <button onclick="deleteExpense()">Delete Expense</button>
-    </div>
+    <button id="printPDFBtn" class="btn hidden" onclick="generatePDF()">Print to PDF</button>
   </div>
 
-  <!-- Keep your existing script.js with the cents-based logic and other features -->
+  <!-- Include jsPDF library from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

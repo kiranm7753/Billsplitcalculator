@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Fixed roommate list and groups
-  const roommates = ["DEEKSHITH", "NAGI", "NANDITH", "PAVAN", "RAVI", "SASI", "SUNDAR"];
+  const roommates = ["DEEKSHITH", "NAGI", "NANDITH", "PAVAN", "RAVI", "SASI"];
   const nonVegGroup = ["PAVAN", "SASI", "RAVI", "NANDITH"];
   const eggGroup = ["NAGI", "PAVAN", "SASI", "RAVI", "NANDITH"];
 
@@ -284,4 +284,5 @@ document.addEventListener("DOMContentLoaded", function () {
     doc.save("Roommate_Splitter_Summary.pdf");
   };
 });
+
 

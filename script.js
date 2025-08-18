@@ -284,3 +284,4 @@ document.addEventListener("DOMContentLoaded", function () {
     doc.save("Roommate_Splitter_Summary.pdf");
   };
 });
+

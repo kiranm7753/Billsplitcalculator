@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Fixed roommate list and groups
-  const roommates = ["MADHU", "NAGI", "NANDITH", "PAVAN", "RAVI", "SASI", "NAVEEN", "RUTVIK"];
-  const nonVegGroup = ["PAVAN", "SASI", "RAVI", "NANDITH"];
-  const eggGroup = ["NAGI", "PAVAN", "SASI", "RAVI", "NANDITH"];
+  const roommates = ["MADHU", "NAGI", "PAVAN", "RAVI", "SASI", "NAVEEN"];
+  const nonVegGroup = ["PAVAN", "SASI", "RAVI","MADHU","NAVEEN"];
+  const eggGroup = ["NAGI", "SASI", "RAVI", "MADHU","NAVEEN"];
 
   // Balances and total amount
   let balances = {};
@@ -284,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
     doc.save("Roommate_Splitter_Summary.pdf");
   };
 });
+
 
 
 
